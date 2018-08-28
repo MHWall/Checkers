@@ -6,7 +6,39 @@ using System.Threading.Tasks;
 
 namespace Checkers
 {
-    class Player
+    abstract class Player
     {
+        Piece ownPiece, queenPiece;
+        int numPiecesLeft = 12;
+        int numQueens = 0;
+        public Player(Piece ownPiece, Piece queenPiece)
+        {
+            this.ownPiece = ownPiece;
+            this.queenPiece = queenPiece;
+        }
+
+        public abstract Piece[,] DetermineMove();
+
+        public void LosePiece()
+        {
+            this.numPiecesLeft--;
+        }
+        public void AddQueen()
+        {
+            this.numQueens++;
+        }
+        public void LoseQueen()
+        {
+            this.numQueens--;
+        }
+        public Piece GetOwnPiece()
+        {
+            return this.ownPiece;
+        }
+        public Piece GetQueenPiece()
+        {
+            return this.queenPiece;
+        }
+        
     }
 }
