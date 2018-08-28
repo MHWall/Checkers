@@ -99,18 +99,11 @@ namespace Checkers
         {
 
             Piece[,] board = CreateBoard();
-
-            // for checking purposes, display board.
-            // make own function and for debugging purposes.
-            for (int i = 0; i < 8; i++)
-            {
-                for(int j = 0; j < 8; j++)
-                {
-                    Console.Write(board[i, j].GetPieceType());
-                }
-                Console.WriteLine();
-
-            }
+         
+            Game newGame = new Game();
+            Console.WriteLine("Enter the number of human players: ");
+            int numPlayers = int.Parse(Console.ReadLine());
+            newGame.Play(board, numPlayers);
 
             Console.ReadKey();
         }
