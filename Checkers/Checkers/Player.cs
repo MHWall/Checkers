@@ -11,10 +11,12 @@ namespace Checkers
         Piece ownPiece, queenPiece;
         int numPiecesLeft = 12;
         int numQueens = 0;
-        public Player(Piece ownPiece, Piece queenPiece)
+        Piece[] pieces;
+        public Player(Piece ownPiece, Piece queenPiece, Piece[] pieces)
         {
             this.ownPiece = ownPiece;
             this.queenPiece = queenPiece;
+            this.pieces = pieces;
         }
 
         public abstract Piece[,] DetermineMove();
@@ -38,6 +40,10 @@ namespace Checkers
         public Piece GetQueenPiece()
         {
             return this.queenPiece;
+        }
+        public  Piece[] GetPieces()
+        {
+            return this.pieces;
         }
         
     }

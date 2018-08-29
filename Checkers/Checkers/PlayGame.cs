@@ -8,6 +8,9 @@ namespace Checkers
 {
     class PlayGame
     {
+
+        static Piece[] playerOne = new Piece[12];
+        static Piece[] playerTwo = new Piece[12];
         // store a board in:
         // O-O-O-O-
         // -O-O-O-O
@@ -38,21 +41,23 @@ namespace Checkers
                         // store 'O' as the piece of the board
                         if(j % 2 == 0 &&(i < 3 || i > 4))
                         {
-                            b[i, j] = new Piece('O', u);
+                            b[i, j] = new Piece('O', u, i, j);
                             u++;
                         }
                         // if the column is odd, and the row is in the first 3,
                         // store '-' as the piece of the board
                         else if(j % 2 != 0 && i < 3)
                         {
-                            b[i, j] = new Piece('-', d);
+                            b[i, j] = new Piece('-', d, i, j);
+                            playerTwo[d] = new Piece('-', d, i, j);
                             d++;
                         }
                         // if the column is odd, and the row is in the last 3,
                         // store '+' as the piece of the board
                         else if (j % 2 != 0 && i > 4)
                         {
-                            b[i, j] = new Piece('+', p);
+                            b[i, j] = new Piece('+', p, i, j);
+                            playerOne[p] = new Piece('+', p, i, j);
                             p++;
                         }
                     }
@@ -63,21 +68,23 @@ namespace Checkers
                         // store 'O' as the piece of the board
                         if (j % 2 != 0 && (i < 3 || i > 4))
                         {
-                            b[i, j] = new Piece('O', u);
+                            b[i, j] = new Piece('O', u, i, j);
                             u++;
                         }
                         // if the column is even, and the row is in the first 3,
                         // store '-' as the piece of the board
                         else if (j % 2 == 0 && i < 3)
                         {
-                            b[i, j] = new Piece('-', d);
+                            b[i, j] = new Piece('-', d, i, j);
+                            playerTwo[d] = new Piece('-', d, i, j);
                             d++;
                         }
                         // if the column is odd, and the row is in the last 3,
                         // store '+' as the piece of the board
                         else if (j % 2 == 0 && i > 4)
                         {
-                            b[i, j] = new Piece('+', p);
+                            b[i, j] = new Piece('+', p, i, j);
+                            playerOne[p] = new Piece('+', p, i, j);
                             p++;
                         }
                     }
@@ -85,7 +92,7 @@ namespace Checkers
                     // if the row is the 3rd or 4th row, store 'O' for the entire row.
                     if (i == 3 || i == 4)
                     {
-                        b[i, j] = new Piece('O', u);
+                        b[i, j] = new Piece('O', u, i, j);
                         u++;
                     }
 
@@ -103,7 +110,7 @@ namespace Checkers
             Game newGame = new Game();
             Console.WriteLine("Enter the number of human players: ");
             int numPlayers = int.Parse(Console.ReadLine());
-            newGame.Play(board, numPlayers);
+            newGame.Play(board, numPlayers, playerOne, playerTwo);
 
             Console.ReadKey();
         }

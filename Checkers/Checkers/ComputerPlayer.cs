@@ -8,5 +8,15 @@ namespace Checkers
 {
     class ComputerPlayer : Player
     {
+        public ComputerPlayer(Piece ownPiece, Piece queenPiece, Piece[] pieces)
+            : base(ownPiece, queenPiece, pieces)
+        {
+
+        }
+
+        public override Piece[,] DetermineMove()
+        {
+            return new Piece[8,8];
+        }
     }
 }
