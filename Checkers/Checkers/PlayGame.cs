@@ -110,6 +110,11 @@ namespace Checkers
             Game newGame = new Game();
             Console.WriteLine("Enter the number of human players: ");
             int numPlayers = int.Parse(Console.ReadLine());
+            while(numPlayers >= 3 || numPlayers <= -1)
+            {
+                Console.WriteLine("Invalid. Enter the number of human players: ");
+                numPlayers = int.Parse(Console.ReadLine());
+            }
             newGame.Play(board, numPlayers, playerOne, playerTwo);
 
             Console.ReadKey();

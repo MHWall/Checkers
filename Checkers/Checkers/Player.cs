@@ -19,7 +19,7 @@ namespace Checkers
             this.pieces = pieces;
         }
 
-        public abstract Piece[,] DetermineMove();
+        public abstract Piece[,] DetermineMove(Piece[,] board);
 
         public void LosePiece()
         {

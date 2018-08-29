@@ -14,7 +14,7 @@ namespace Checkers
 
         }
 
-        public override Piece[,] DetermineMove()
+        public override Piece[,] DetermineMove(Piece[,] board)
         {
             return new Piece[8,8];
         }

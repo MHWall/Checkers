@@ -8,15 +8,17 @@ namespace Checkers
 {
     class Game
     {
+        static bool gameOver = false;
         static Player[] players;
         static Piece[,] Board;
+
         static void DisplayBoard()
         {
             for (int i = 0; i < 8; i++)
             {
                 for (int j = 0; j < 8; j++)
                 {
-                    Console.Write(Board[i, j].GetPieceType());
+                    Console.Write(Board[i, j].GetPieceType() + " ");
                 }
                 Console.WriteLine();
 
@@ -94,19 +96,18 @@ namespace Checkers
         {
 
             Board = b;
-            Console.WriteLine("Here is the board that will be used by " + numPlayers + " player(s): ");
             //initializing varables, used only to initialize players
             Piece plus = new Piece('+');
             Piece plusQueen = new Piece('$');
             Piece dash = new Piece('-');
             Piece dashQueen = new Piece('=');
-
-            if(numPlayers == 2)
+            Console.WriteLine("Here is the board that will be used by " + numPlayers + " player(s): ");
+            if (numPlayers == 2)
             {
                 players = new Player[2] { new HumanPlayer(plus, plusQueen, one),
                                            new HumanPlayer(dash, dashQueen, two)};
             }
-            if(numPlayers == 1)
+            else if(numPlayers == 1)
             {
                 players = new Player[2] { new HumanPlayer(plus, plusQueen, one),
                                            new ComputerPlayer(dash, dashQueen, two)};
@@ -118,11 +119,30 @@ namespace Checkers
             }
 
 
-
-
-
             DisplayBoard();
-          //  DisplayPlayerInfo();
+            Console.WriteLine("Plus goes first. Make your move. Pieces are numbered 0-11 from top left " +
+                "to bottom right of your starting side");
+            //  Board = players[0].DetermineMove(Board);
+            //  DisplayBoard();
+
+            int i = 0;
+            while (!gameOver)
+            {
+                Board = players[i].DetermineMove(Board);
+                DisplayBoard();
+                if(i == 0)
+                {
+                    Console.WriteLine("Help");
+                    i = 1;
+                }
+                if (i == 1)
+                {
+                    i = 0;
+                }
+               // Console.WriteLine("i is: " + i);
+            }
+
+            // DisplayPlayerInfo();
         }
 
     }
