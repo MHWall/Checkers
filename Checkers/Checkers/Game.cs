@@ -130,6 +130,7 @@ namespace Checkers
             {
                 Board = players[i].DetermineMove(Board);
                 DisplayBoard();
+
                 if(i == 0)
                 {
                     i = 1;
@@ -138,6 +139,7 @@ namespace Checkers
                 {
                     i = 0;
                 }
+                Console.WriteLine();
             }
 
             // DisplayPlayerInfo();
