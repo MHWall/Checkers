@@ -76,9 +76,19 @@ namespace Checkers
             //since the original piece in the original row and column is stored and is moving,
             //this space is now empty, so it will become an empty piece, or an 'O'
             board[originalRow, originalColumn] = board[newRow, newCol];
+            board[originalRow, originalColumn].SetRow(originalRow);
+            board[originalRow, originalColumn].SetColumn(originalColumn);
 
             //place the original piece in the new row and column that the piece is to be put on.
             board[newRow, newCol] = original;
+            board[newRow, newCol].SetRow(newRow);
+            board[newRow, newCol].SetColumn(newCol);
+
+            //update the Pieces the player owns
+            this.GetPieces()[id] = board[newRow, newCol];
+
+
+
 
 
 
