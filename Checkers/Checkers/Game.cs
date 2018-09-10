@@ -27,7 +27,7 @@ namespace Checkers
 
 
         //debuggng function to check if correct information is stored.
-        static void DisplayPlayerInfo()
+        private void DisplayPlayerInfo()
         {
 
             //player one
