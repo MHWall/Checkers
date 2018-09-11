@@ -75,6 +75,64 @@ namespace Checkers
             }
         }
 
+        public static bool CheckJumpable(int moveDir, Piece[,] board, int row, int col)
+        {
+            int checkX;
+            int checkY;
+            char boardPiece = 'n';
+            switch (moveDir)
+            {
+                case 1:
+                    checkX = row - 1;
+                    checkY = col - 1;
+                    if(CheckBoardBounds(checkX, checkY, board))
+                    {
+                        boardPiece = board[checkX, checkY].GetPieceType();
+                    }
+                    break;
+                case 2:
+                    checkX = row + 1;
+                    checkY = col - 1;
+                    if (CheckBoardBounds(checkX, checkY, board))
+                    {
+                        boardPiece = board[checkX, checkY].GetPieceType();
+                    }
+                    break;
+                case 3:
+                    checkX = row - 1;
+                    checkY = col + 1;
+                    if (CheckBoardBounds(checkX, checkY, board))
+                    {
+                        boardPiece = board[checkX, checkY].GetPieceType();
+                    }
+                    break;
+                case 4:
+                    checkX = row + 1;
+                    checkY = col + 1;
+                    if (CheckBoardBounds(checkX, checkY, board))
+                    {
+                        boardPiece = board[checkX, checkY].GetPieceType();
+                    }
+                    break;
+            }
+
+            if(boardPiece == 'n')
+            {
+                return false;
+            }
+            else
+            {
+                if(boardPiece == 'O')
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+
 
       
     }

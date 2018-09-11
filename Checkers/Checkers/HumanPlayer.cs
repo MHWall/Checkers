@@ -26,6 +26,7 @@ namespace Checkers
             int newRow = 0;
             int newCol = 0;
             int id = 0;
+            int moveDir = 0;
             Piece pieceToMove = new Piece('O');
             while (isInvalidMove)
             {
@@ -63,18 +64,22 @@ namespace Checkers
                         case "ul":
                             newRow = originalRow - 1;
                             newCol = originalColumn - 1;
+                            moveDir = 1;
                             break;
                         case "dl":
                             newRow = originalRow + 1;
                             newCol = originalColumn - 1;
+                            moveDir = 2;
                             break;
                         case "ur":
                             newRow = originalRow - 1;
                             newCol = originalColumn + 1;
+                            moveDir = 3;
                             break;
                         case "dr":
                             newRow = originalRow + 1;
                             newCol = originalColumn + 1;
+                            moveDir = 4;
                             break;
                         default:
                             newRow = 9;
@@ -93,7 +98,7 @@ namespace Checkers
                         {
                             newRow = originalRow - 1;
                             newCol = originalColumn - 1;
-
+                            moveDir = 1;
                         }
 
                         //if user chose to move as a plus to the right, 
@@ -101,6 +106,7 @@ namespace Checkers
                         {
                             newRow = originalRow - 1;
                             newCol = originalColumn + 1;
+                            moveDir = 3;
                         }
                     }
                     else
@@ -110,13 +116,14 @@ namespace Checkers
                         {
                             newRow = originalRow + 1;
                             newCol = originalColumn - 1;
-
+                            moveDir = 2;
                         }
                         //if user chose to move as a minus to the right, 
                         else
                         {
                             newRow = originalRow + 1;
                             newCol = originalColumn + 1;
+                            moveDir = 4;
                         }
                     }
 
@@ -159,7 +166,22 @@ namespace Checkers
                                     //display board after each jump
                             //else
                                 //isInvalidPiece = true;
-                            isInvalidMove = false;
+
+                            //jump detection, if able to jump, jump
+                            //if no able to jump, get new move from user
+                            if(MoveChecker.CheckJumpable(moveDir, board, newRow, newCol))
+                            {
+                                Console.WriteLine("Valid jump");
+                                //get coords of where to land on jump
+                                isInvalidMove = false;
+                            }
+                            else
+                            {
+                                Console.WriteLine("No jump");
+                                isInvalidPiece = true;
+                            }
+
+                          
                             break;
                     }
 
