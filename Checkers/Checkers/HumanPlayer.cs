@@ -14,8 +14,7 @@ namespace Checkers
 
         }
 
-        //TO-DO:    1. check if valid move,
-        //          2. queen functionality
+        //TO-DO:    
         //          3. allow jumping
 
         public override Piece[,] DetermineMove(Piece[,] board)
@@ -53,54 +52,118 @@ namespace Checkers
                 originalColumn = pieceToMove.GetColumn();
 
                 //get direction from user
-                Console.WriteLine("Move left or right? l/r: ");
+                Console.WriteLine("Move left or right and up or down? l/r for pawns, or ul/dl/ur/dr for queens: ");
                 String move = Console.ReadLine();
 
-                //check if piece to move is plus.
-                if(pieceToMove.GetPieceType() == '+')
+                //if queen, move queen:
+                if (pieceToMove.GetIsQueen())
                 {
-                    //if user chose to move as a plus to the left, 
-                    if (move == "l")
+                    switch (move)
                     {
-                        newRow = originalRow - 1;
-                        newCol = originalColumn - 1;
-
-                    }
-
-                    //if user chose to move as a plus to the right, 
-                    else
-                    {
-                        newRow = originalRow - 1;
-                        newCol = originalColumn + 1;
+                        case "ul":
+                            newRow = originalRow - 1;
+                            newCol = originalColumn - 1;
+                            break;
+                        case "dl":
+                            newRow = originalRow + 1;
+                            newCol = originalColumn - 1;
+                            break;
+                        case "ur":
+                            newRow = originalRow - 1;
+                            newCol = originalColumn + 1;
+                            break;
+                        case "dr":
+                            newRow = originalRow + 1;
+                            newCol = originalColumn + 1;
+                            break;
+                        default:
+                            newRow = 9;
+                            newCol = 9;
+                            break;
                     }
                 }
+                //else do below:
                 else
                 {
-                    //if user chose to move as a minus to the left, 
-                    if (move == "l")
+                    //check if piece to move is plus.
+                    if(pieceToMove.GetPieceType() == '+')
                     {
-                        newRow = originalRow + 1;
-                        newCol = originalColumn - 1;
+                        //if user chose to move as a plus to the left, 
+                        if (move == "l")
+                        {
+                            newRow = originalRow - 1;
+                            newCol = originalColumn - 1;
 
+                        }
+
+                        //if user chose to move as a plus to the right, 
+                        else
+                        {
+                            newRow = originalRow - 1;
+                            newCol = originalColumn + 1;
+                        }
                     }
-                    //if user chose to move as a minus to the right, 
                     else
                     {
-                        newRow = originalRow + 1;
-                        newCol = originalColumn + 1;
+                        //if user chose to move as a minus to the left, 
+                        if (move == "l")
+                        {
+                            newRow = originalRow + 1;
+                            newCol = originalColumn - 1;
+
+                        }
+                        //if user chose to move as a minus to the right, 
+                        else
+                        {
+                            newRow = originalRow + 1;
+                            newCol = originalColumn + 1;
+                        }
                     }
+
                 }
-                if(MoveChecker.CheckBoardBounds(newRow, newCol, board))
+
+
+
+
+
+                if (MoveChecker.CheckBoardBounds(newRow, newCol, board))
                 {
-                    if (!MoveChecker.CheckPieceAtMoveToForSamePieceType(newRow, newCol, board, this.GetPieces()[id]))
+                    char checkMovePiece = MoveChecker.CheckPieceAtMoveToForSamePieceType(newRow, newCol, board, this.GetPieces()[id]);
+
+                    switch (checkMovePiece)
                     {
-                        isInvalidMove = false;
+                        case 'o':
+                            isInvalidMove = false;
+                            break;
+                        case 's':
+                            Console.WriteLine("Invalid move. Choose new move!");
+                            isInvalidPiece = true;
+                            break;
+                        case 'd':
+                            //check for jumping in direction
+                            //int i is 1
+                            //if jumpable
+                                //while jumpable
+                                    //if i iis 1
+                                        //jump in move direction
+                                        //i++
+                                    //else
+                                        //create array of jumping dirs
+                                        //if array size is 0
+                                            //jumpable is false
+                                        //else
+                                            //ask jump direction
+                                                //if no, jumpable is false
+                                                //else move 
+                                    //i++
+                                    //display board after each jump
+                            //else
+                                //isInvalidPiece = true;
+                            isInvalidMove = false;
+                            break;
                     }
-                    else
-                    {
-                        Console.WriteLine("Invalid move. Choose new move!");
-                        isInvalidPiece = true;
-                    }
+
+
                 }
                 else
                 {

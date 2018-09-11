@@ -19,23 +19,32 @@ namespace Checkers
 
 
             bool isInvalidMove = true;
+            bool isInvalidPiece = true;
             int originalRow = 0;
             int originalColumn = 0;
             int newRow = 0;
             int newCol = 0;
             int id = 0;
+            int move = 0;
+            Piece pieceToMove = new Piece('O');
 
             while (isInvalidMove)
             {
                 Random rnd = new Random();
-                Piece pieceToMove;
+
+                while (isInvalidPiece)
+                { 
+                    //id of piece to move
+                    id = rnd.Next(0, 11);
+                    pieceToMove = this.GetPieces()[id];
+                    if (MoveChecker.CheckPieceStillPlayable(pieceToMove))
+                    {
+                        isInvalidPiece = false;
+                    }
+                }
 
                 //1 is left, 2 is right
-                int move = rnd.Next(1, 2);
-
-                //id of piece to move
-                id = rnd.Next(0, 11);
-                pieceToMove = this.GetPieces()[id];
+                move = rnd.Next(1, 2);
 
                 //store original row and column
                 originalRow = pieceToMove.GetRow();
@@ -78,18 +87,20 @@ namespace Checkers
                 }
                 if (MoveChecker.CheckBoardBounds(newRow, newCol, board))
                 {
-                    if (!MoveChecker.CheckPieceAtMoveToForSamePieceType(newRow, newCol, board, this.GetPieces()[id]))
+                    if (MoveChecker.CheckPieceAtMoveToForSamePieceType(newRow, newCol, board, this.GetPieces()[id]) != 's')
                     {
                         isInvalidMove = false;
                     }
                     else
                     {
                         //Console.WriteLine("Invalid move. Generating new move!");
+                        isInvalidPiece = true;
                     }
                 }
                 else
                 {
-                   // Console.WriteLine("Invalid move. Generating new move!");
+                    // Console.WriteLine("Invalid move. Generating new move!");
+                    isInvalidPiece = true;
                 }
             }
             //store original piece from board
